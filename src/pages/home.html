@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenEnergy | Energia solar</title>
+    <link rel="stylesheet" href="/src/pages/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <a class="logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <nav class="menu">
+        <a href="/src/pages/produtos.html">Produtos</a>
+        <a href="/src/pages/produtos.html?categoria=Kits solares"
+          >Kits solares</a
+        >
+        <a href="/src/pages/produtos.html?categoria=Painéis fotovoltaicos"
+          >Painéis</a
+        >
+      </nav>
+      <form class="busca" id="busca">
+        <input name="busca" placeholder="Buscar produtos solares" /><button>
+          Buscar
+        </button>
+      </form>
+      <div class="acoes">
+        <a class="acao" href="/src/pages/perfil.html" title="Minha conta">👤</a>
+        <a class="acao" href="/src/pages/carrinho.html" title="Carrinho"
+          >🛒<span class="contador">0</span></a
+        >
+      </div>
+    </header>
+    <main class="conteudo">
+      <section class="banner">
+        <div class="banner-texto">
+          <h1>Energia limpa começa aqui.</h1>
+          <p>
+            Equipamentos solares selecionados para gerar economia e contribuir
+            com um futuro sustentável.
+          </p>
+          <a
+            class="botao"
+            href="/src/pages/produtos.html"
+            style="display: inline-block; width: auto"
+            >Ver produtos</a
+          >
+        </div>
+        <div class="banner-sol"></div>
+      </section>
+      <section>
+        <div class="titulo-secao"><h2>Categorias</h2></div>
+        <div class="categorias" id="categorias"></div>
+      </section>
+      <section>
+        <div class="titulo-secao">
+          <h2>Produtos em destaque</h2>
+          <a href="/src/pages/produtos.html">Ver catálogo →</a>
+        </div>
+        <div class="carrossel-area">
+          <button
+            class="seta seta-esquerda"
+            id="anterior"
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+          <div class="carrossel" id="carrossel">
+            <div class="carregando">Carregando produtos</div>
+          </div>
+          <button class="seta seta-direita" id="proximo" aria-label="Próximo">
+            ›
+          </button>
+        </div>
+      </section>
+      <section>
+        <div class="titulo-secao"><h2>Benefícios da energia solar</h2></div>
+        <div class="beneficios">
+          <article class="beneficio">
+            <h3>Economia na conta</h3>
+            <p>Reduza o consumo de energia da rede elétrica.</p>
+          </article>
+          <article class="beneficio">
+            <h3>Energia sustentável</h3>
+            <p>Utilize uma fonte limpa e renovável.</p>
+          </article>
+          <article class="beneficio">
+            <h3>Mais autonomia</h3>
+            <p>Produza energia no seu próprio espaço.</p>
+          </article>
+        </div>
+      </section>
+      <section class="institucional">
+        <div>
+          <h2>Conheça a GreenEnergy</h2>
+          <p>
+            Somos uma loja acadêmica especializada em equipamentos de energia
+            renovável, oferecendo orientação sobre sistemas solares para
+            residências e pequenos negócios.
+          </p>
+        </div>
+        <div><strong>Missão:</strong> facilitar o acesso à energia limpa.</div>
+      </section>
+    </main>
+    <footer class="rodape">
+      <div class="rodape-grid">
+        <div>
+          <strong>GreenEnergy</strong>
+          <p>Projeto integrador — energia solar.</p>
+        </div>
+        <div>
+          <strong>Equipe</strong>
+          <p>Brenno Eiji<br />Tiago Ferreira<br />Ana Carolina</p>
+        </div>
+        <div>
+          <strong>Contato</strong>
+          <p>contato@greenenergy.com</p>
+        </div>
+      </div>
+    </footer>
+    <script type="module" src="/src/pages/home.js"></script>
+  </body>
+</html>

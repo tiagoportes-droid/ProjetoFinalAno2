@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Checkout | GreenEnergy</title>
+    <link rel="stylesheet" href="/src/pages/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <a class="logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <nav class="menu"><a href="/src/pages/carrinho.html">← Carrinho</a></nav>
+    </header>
+    <main class="conteudo">
+      <h1>Finalizar compra</h1>
+      <section class="detalhe-produto">
+        <form class="painel" id="checkout" style="margin: 0">
+          <h2>Dados da entrega</h2>
+          <div class="form-grid">
+            <input
+              name="endereco_entrega"
+              placeholder="Endereço completo"
+              required
+            />
+            <select name="forma_pagamento">
+              <option>Pix</option>
+              <option>Cartão de crédito</option>
+              <option>Boleto</option>
+            </select>
+            <div id="mensagem"></div>
+            <button class="botao">Confirmar compra</button>
+          </div>
+        </form>
+        <div class="resumo" id="resumo"></div>
+      </section>
+    </main>
+    <script type="module" src="/src/pages/checkout.js"></script>
+  </body>
+</html>

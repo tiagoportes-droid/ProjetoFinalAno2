@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cadastro | GreenEnergy</title>
+    <link rel="stylesheet" href="/src/formularios/style.css" />
+  </head>
+  <body>
+    <main>
+      <a class="acesso-logo logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <section class="painel">
+        <h1>Criar conta</h1>
+        <form class="form-grid" id="cadastro">
+          <input name="nome" placeholder="Nome completo" required />
+          <input type="email" name="email" placeholder="E-mail" required />
+          <input
+            type="password"
+            name="senha"
+            minlength="6"
+            placeholder="Senha com 6 caracteres"
+            required
+          />
+          <input name="telefone" placeholder="Telefone" />
+          <input name="cpf" placeholder="CPF" />
+          <input name="cep" placeholder="CEP" />
+          <input name="endereco" placeholder="Endereço" />
+          <input name="numero" placeholder="Número" />
+          <input name="bairro" placeholder="Bairro" />
+          <input name="cidade" placeholder="Cidade" />
+          <input name="estado" maxlength="2" placeholder="UF" />
+          <div id="mensagem"></div>
+          <button class="botao">Cadastrar</button>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="/src/formularios/cadastro.js"></script>
+  </body>
+</html>

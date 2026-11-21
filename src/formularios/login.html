@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Entrar | GreenEnergy</title>
+    <link rel="stylesheet" href="/src/formularios/style.css" />
+  </head>
+  <body>
+    <main>
+      <a class="acesso-logo logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <section class="painel">
+        <h1>Entrar</h1>
+        <form class="form-grid" id="login">
+          <input type="email" name="email" placeholder="E-mail" required />
+          <input type="password" name="senha" placeholder="Senha" required />
+          <div id="mensagem"></div>
+          <button class="botao">Entrar</button>
+        </form>
+        <p>
+          Ainda não tem conta?
+          <a href="/src/formularios/cadastro.html"
+            ><strong>Cadastre-se</strong></a
+          >
+        </p>
+      </section>
+    </main>
+    <script type="module" src="/src/formularios/login.js"></script>
+  </body>
+</html>

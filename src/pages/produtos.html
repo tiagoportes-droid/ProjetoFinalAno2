@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Produtos | GreenEnergy</title>
+    <link rel="stylesheet" href="/src/pages/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <a class="logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <nav class="menu">
+        <a href="/src/pages/home.html">Início</a
+        ><a href="/src/pages/produtos.html">Produtos</a>
+      </nav>
+      <div class="acoes">
+        <a class="acao" href="/src/pages/perfil.html">👤</a
+        ><a class="acao" href="/src/pages/carrinho.html"
+          >🛒<span class="contador">0</span></a
+        >
+      </div>
+    </header>
+    <main class="conteudo">
+      <h1>Catálogo de produtos</h1>
+      <div class="controles">
+        <input id="busca" placeholder="Pesquisar produtos" />
+        <select id="categoria">
+          <option value="">Todas as categorias</option>
+        </select>
+        <select id="ordenar">
+          <option value="">Mais recentes</option>
+          <option value="menor">Menor preço</option>
+          <option value="maior">Maior preço</option>
+          <option value="nome">Nome</option>
+        </select>
+      </div>
+      <div class="grade-produtos" id="produtos">
+        <div class="carregando">Carregando</div>
+      </div>
+    </main>
+    <script type="module" src="/src/pages/produtos.js"></script>
+  </body>
+</html>

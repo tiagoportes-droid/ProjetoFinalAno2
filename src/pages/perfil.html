@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Meu perfil | GreenEnergy</title>
+    <link rel="stylesheet" href="/src/pages/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <a class="logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <nav class="menu"><a href="/src/pages/pedidos.html">Meus pedidos</a></nav>
+      <div class="acoes">
+        <a class="acao" href="/src/pages/carrinho.html"
+          >🛒<span class="contador">0</span></a
+        >
+      </div>
+    </header>
+    <main class="conteudo">
+      <section class="painel">
+        <h1>Meu perfil</h1>
+        <form class="form-grid" id="perfil"></form>
+        <button
+          class="botao botao-secundario"
+          id="sair"
+          style="margin-top: 12px"
+        >
+          Sair da conta
+        </button>
+      </section>
+    </main>
+    <script type="module" src="/src/pages/perfil.js"></script>
+  </body>
+</html>
