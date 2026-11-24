@@ -42,6 +42,38 @@ async function carregarProdutos() {
   }
 }
 
+function iniciarParallax() {
+  const banner = document.querySelector(".banner");
+  if (!banner) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let ticking = false;
+
+  function atualizar() {
+    const rect = banner.getBoundingClientRect();
+
+    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+      const scrollY = window.scrollY;
+      banner.style.setProperty("--parallax-texto", `${scrollY * 0.1}px`);
+      banner.style.setProperty("--parallax-sol", `${scrollY * 0.1}px`);
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(atualizar);
+        ticking = true;
+      }
+    },
+    { passive: true },
+  );
+}
+
 document.getElementById("proximo").addEventListener("click", () => {
   document
     .getElementById("carrossel")
@@ -61,3 +93,4 @@ document.getElementById("busca").addEventListener("submit", (evento) => {
 carregarCategorias();
 carregarProdutos();
 atualizarContador();
+iniciarParallax();

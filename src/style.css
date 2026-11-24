@@ -123,6 +123,7 @@ button {
   margin: 32px auto;
 }
 .banner {
+  position: relative;
   min-height: 360px;
   display: flex;
   align-items: center;
@@ -135,6 +136,9 @@ button {
 }
 .banner-texto {
   max-width: 520px;
+  will-change: transform;
+  transform: translate3d(0, var(--parallax-texto, 0px), 0);
+  transition: transform 0.08s ease-out;
 }
 .banner h1 {
   margin: 0 0 12px;
@@ -150,12 +154,14 @@ button {
   border-radius: 50%;
   background: var(--accent);
   box-shadow: 0 0 50px rgba(250, 204, 21, 0.55);
-  transform: translate(10px, 5px);
+  will-change: transform;
+  transform: translate3d(10px, calc(5px + var(--parallax-sol, 0px)), 0);
   animation: pulsar 3s ease-in-out infinite;
 }
 @keyframes pulsar {
   50% {
-    transform: translate(10px, 5px) scale(1.04);
+    transform: translate3d(10px, calc(5px + var(--parallax-sol, 0px)), 0)
+      scale(1.04);
   }
 }
 
@@ -486,5 +492,13 @@ button {
   }
   .rodape-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-texto,
+  .banner-sol {
+    animation: none !important;
+    transform: none !important;
   }
 }
