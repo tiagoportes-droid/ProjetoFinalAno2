@@ -4,7 +4,10 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import authRoutes from "./routes/authRoutes.js";
+import carrinhoRoutes from "./routes/carrinhoRoutes.js";
 import produtoRoutes from "./routes/produtoRoutes.js";
+import vendaRoutes from "./routes/vendaRoutes.js";
 import { pool } from "./config/database.js";
 
 dotenv.config();
@@ -31,6 +34,9 @@ app.get("/api/status", async (req, res) => {
 });
 
 app.use("/api/produtos", produtoRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/carrinho", carrinhoRoutes);
+app.use("/api", vendaRoutes);
 
 app.get("/", (req, res) => {
   res.redirect("/src/pages/home.html");

@@ -1,4 +1,4 @@
-import { api, dinheiro } from "../index.js";
+import { api, dinheiro, atualizarContador } from "../index.js";
 
 async function carregarCategorias() {
   try {
@@ -92,4 +92,5 @@ document.getElementById("busca").addEventListener("submit", (evento) => {
 
 carregarCategorias();
 carregarProdutos();
+atualizarContador();
 iniciarParallax();
