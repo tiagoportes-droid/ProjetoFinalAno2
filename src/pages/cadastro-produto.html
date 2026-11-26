@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cadastrar produto | GreenEnergy</title>
+    <link rel="stylesheet" href="/src/pages/style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <a class="logo" href="/src/pages/home.html"
+        ><span class="logo-marca">☀</span> GreenEnergy</a
+      >
+      <nav class="menu">
+        <a href="/src/pages/produtos.html">Catálogo</a>
+        <a href="/src/pages/cadastro-produto.html">Cadastrar produto</a>
+      </nav>
+      <div class="acoes">
+        <a class="acao" href="/src/pages/perfil.html" title="Minha conta">👤</a>
+      </div>
+    </header>
+    <main class="conteudo">
+      <section class="painel painel-produto">
+        <h1>Cadastrar produto</h1>
+        <p>Preencha os dados para adicionar um item ao catálogo.</p>
+        <form class="form-grid" id="cadastro-produto">
+          <label for="nome">Nome do produto</label>
+          <input
+            id="nome"
+            name="nome"
+            maxlength="150"
+            autocomplete="off"
+            required
+          />
+
+          <label for="categoria_id">Categoria</label>
+          <select id="categoria_id" name="categoria_id" required>
+            <option value="">Carregando categorias...</option>
+          </select>
+
+          <label for="descricao">Descrição</label>
+          <textarea
+            id="descricao"
+            name="descricao"
+            rows="5"
+            maxlength="5000"
+            required
+          ></textarea>
+
+          <div class="campos-produto">
+            <div>
+              <label for="preco">Preço (R$)</label>
+              <input
+                id="preco"
+                name="preco"
+                type="number"
+                min="0.01"
+                max="99999999.99"
+                step="0.01"
+                required
+              />
+            </div>
+            <div>
+              <label for="estoque">Estoque</label>
+              <input
+                id="estoque"
+                name="estoque"
+                type="number"
+                min="0"
+                max="2147483647"
+                step="1"
+                value="0"
+                required
+              />
+            </div>
+          </div>
+
+          <label for="imagem"
+            >Endereço da imagem (HTTP(S) ou caminho /src/assets/)</label
+          >
+          <input
+            id="imagem"
+            name="imagem"
+            type="text"
+            maxlength="255"
+            placeholder="/src/assets/painel.svg"
+          />
+          <small
+            >Opcional. Informe um endereço seguro ou o caminho de uma imagem
+            existente no projeto.</small
+          >
+
+          <div id="mensagem" aria-live="polite"></div>
+          <button class="botao" id="enviar" type="submit">
+            Cadastrar produto
+          </button>
+        </form>
+      </section>
+    </main>
+    <script type="module" src="/src/pages/cadastro-produto.js"></script>
+  </body>
+</html>

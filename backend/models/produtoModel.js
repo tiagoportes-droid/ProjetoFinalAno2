@@ -42,3 +42,28 @@ export async function listarCategorias() {
   );
   return categorias;
 }
+
+export async function buscarCategoriaPorId(id) {
+  const [categorias] = await pool.execute(
+    "SELECT id FROM categoria WHERE id = ?",
+    [id],
+  );
+  return categorias[0] || null;
+}
+
+export async function criar({
+  categoriaId,
+  nome,
+  descricao,
+  preco,
+  estoque,
+  imagem,
+}) {
+  // Os placeholders separam os dados do formulário do comando SQL.
+  const [resultado] = await pool.execute(
+    `INSERT INTO produto (categoria_id, nome, descricao, preco, estoque, imagem)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [categoriaId, nome, descricao, preco, estoque, imagem],
+  );
+  return resultado.insertId;
+}

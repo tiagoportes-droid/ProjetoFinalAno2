@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/", produtoController.listarProdutos);
 router.get("/categorias", produtoController.listarCategorias);
+router.post("/", produtoController.criarProduto);
 router.get("/:id", produtoController.buscarProduto);
 router.post("/consultas", produtoController.registrarConsulta);
 

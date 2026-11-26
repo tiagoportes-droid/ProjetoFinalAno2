@@ -14,6 +14,7 @@ npm install
 ```
 
 Crie o arquivo `.env` usando `.env.example` como base.
+O cadastro de produtos está disponível publicamente e não exige login.
 
 ```bash
 npm run db:schema

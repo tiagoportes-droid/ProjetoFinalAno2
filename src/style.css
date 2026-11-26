@@ -383,11 +383,44 @@ button {
   gap: 12px;
 }
 .form-grid input,
-.form-grid select {
+.form-grid select,
+.form-grid textarea {
   width: 100%;
   padding: 11px;
   border: 1px solid var(--border);
   border-radius: 8px;
+}
+.form-grid textarea {
+  resize: vertical;
+  font: inherit;
+}
+.form-grid label {
+  font-weight: 600;
+}
+.painel-produto {
+  max-width: 680px;
+}
+.campos-produto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.campos-produto > div {
+  display: grid;
+  gap: 8px;
+}
+.titulo-catalogo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.titulo-catalogo h1 {
+  margin: 0;
+}
+.botao-cadastro-produto {
+  width: auto;
 }
 .tabela-carrinho {
   display: grid;
@@ -491,6 +524,11 @@ button {
     grid-column: auto;
   }
   .rodape-grid {
+    grid-template-columns: 1fr;
+  }
+  .titulo-catalogo,
+  .campos-produto {
+    display: grid;
     grid-template-columns: 1fr;
   }
 }
