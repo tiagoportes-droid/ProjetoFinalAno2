@@ -1,3 +1,5 @@
+// Mensagem de erro caso o arquivo SQL não seja informado
+
 import fs from "fs/promises";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";

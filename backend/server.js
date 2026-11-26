@@ -4,10 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import authRoutes from "./routes/authRoutes.js";
 import produtoRoutes from "./routes/produtoRoutes.js";
-import carrinhoRoutes from "./routes/carrinhoRoutes.js";
-import vendaRoutes from "./routes/vendaRoutes.js";
 import { pool } from "./config/database.js";
 
 dotenv.config();
@@ -33,10 +30,7 @@ app.get("/api/status", async (req, res) => {
   }
 });
 
-app.use("/api/auth", authRoutes);
 app.use("/api/produtos", produtoRoutes);
-app.use("/api/carrinho", carrinhoRoutes);
-app.use("/api", vendaRoutes);
 
 app.get("/", (req, res) => {
   res.redirect("/src/pages/home.html");
@@ -52,7 +46,7 @@ async function iniciarServidor() {
     console.log("Conexão com MariaDB estabelecida.");
   } catch (error) {
     console.warn("MariaDB indisponível:", error.message);
-    console.warn("Execute os arquivos SQL antes de usar os recursos privados.");
+    console.warn("Execute os arquivos SQL antes de usar o catálogo.");
   }
 
   const porta = Number(process.env.PORT || 3000);

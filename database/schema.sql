@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS categoria (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(80) NOT NULL UNIQUE,
     descricao VARCHAR(255)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS cliente (
     telefone VARCHAR(20),
     cpf VARCHAR(14) UNIQUE,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS cadastro (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS cadastro (
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_cadastro_cliente FOREIGN KEY (cliente_id)
         REFERENCES cliente(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS login (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS login (
     ultimo_login TIMESTAMP NULL,
     CONSTRAINT fk_login_cliente FOREIGN KEY (cliente_id)
         REFERENCES cliente(id) ON DELETE CASCADE
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS consulta (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS consulta (
     CONSTRAINT fk_consulta_cliente FOREIGN KEY (cliente_id)
         REFERENCES cliente(id) ON DELETE SET NULL,
     INDEX idx_consulta_termo (termo)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS produto (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS produto (
         REFERENCES categoria(id),
     INDEX idx_produto_nome (nome),
     INDEX idx_produto_preco (preco)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS carrinho_de_compra (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS carrinho_de_compra (
     CONSTRAINT fk_carrinho_cliente FOREIGN KEY (cliente_id)
         REFERENCES cliente(id) ON DELETE CASCADE,
     UNIQUE KEY uk_carrinho_cliente_sessao (cliente_id, sessao)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS item_carrinho (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS item_carrinho (
         REFERENCES produto(id),
     UNIQUE KEY uk_carrinho_produto (carrinho_id, produto_id),
     CONSTRAINT chk_quantidade_carrinho CHECK (quantidade > 0)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS compra (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS compra (
         REFERENCES cliente(id),
     CONSTRAINT fk_compra_carrinho FOREIGN KEY (carrinho_id)
         REFERENCES carrinho_de_compra(id) ON DELETE SET NULL
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS venda (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS venda (
         REFERENCES compra(id),
     CONSTRAINT fk_venda_cliente FOREIGN KEY (cliente_id)
         REFERENCES cliente(id)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS item_venda (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS item_venda (
         REFERENCES venda(id) ON DELETE CASCADE,
     CONSTRAINT fk_item_venda_produto FOREIGN KEY (produto_id)
         REFERENCES produto(id)
-) ENGINE=InnoDB;
+) 
 
 CREATE TABLE IF NOT EXISTS nota_fiscal (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -139,4 +139,4 @@ CREATE TABLE IF NOT EXISTS nota_fiscal (
     observacao VARCHAR(255) DEFAULT 'Comprovante fiscal acadêmico interno',
     CONSTRAINT fk_nota_venda FOREIGN KEY (venda_id)
         REFERENCES venda(id)
-) ENGINE=InnoDB;
+) 

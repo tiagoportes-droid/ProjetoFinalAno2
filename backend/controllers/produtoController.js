@@ -114,10 +114,7 @@ export async function registrarConsulta(req, res) {
   try {
     const termo = String(req.body.termo || "").trim();
     if (!termo) return res.status(400).json({ mensagem: "Informe um termo." });
-    await pool.execute(
-      "INSERT INTO consulta (cliente_id, termo) VALUES (?, ?)",
-      [req.usuario?.id || null, termo],
-    );
+    await pool.execute("INSERT INTO consulta (termo) VALUES (?)", [termo]);
     return res.status(201).json({ mensagem: "Consulta registrada." });
   } catch (error) {
     console.error("Erro ao registrar consulta:", error);

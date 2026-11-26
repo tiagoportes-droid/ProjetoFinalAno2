@@ -1,4 +1,4 @@
-import { api, dinheiro, atualizarContador } from "../index.js";
+import { api, dinheiro } from "../index.js";
 
 const parametros = new URLSearchParams(window.location.search);
 const busca = document.getElementById("busca");
@@ -59,4 +59,3 @@ categoria.addEventListener("change", carregarProdutos);
 ordenar.addEventListener("change", carregarProdutos);
 carregarCategorias();
 carregarProdutos();
-atualizarContador();
