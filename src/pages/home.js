@@ -1,15 +1,30 @@
-import { api, dinheiro, atualizarContador } from "../index.js";
+import {
+  api,
+  dinheiro,
+  escaparHtml,
+  imagemProduto,
+  atualizarContador,
+} from "../index.js";
+
+const iconesCategoria = {
+  "Acessórios": "tools",
+  Baterias: "battery-full",
+  "Controladores de carga": "settings-sliders",
+  Inversores: "bolt",
+  "Kits solares": "boxes",
+  "Painéis fotovoltaicos": "solar-panel",
+};
 
 async function carregarCategorias() {
   try {
     const categorias = await api("/api/produtos/categorias");
     document.getElementById("categorias").innerHTML = categorias
-      .map(
-        (categoria) =>
-          `<a class="categoria" href="/src/pages/produtos.html?categoria=${encodeURIComponent(categoria.nome)}">
-                ☀<br><strong>${categoria.nome}</strong>
-             </a>`,
-      )
+      .map((categoria) => {
+        const icone = iconesCategoria[categoria.nome] || "box";
+        return `<a class="categoria glass" href="/src/pages/produtos.html?categoria=${encodeURIComponent(categoria.nome)}">
+                <i class="icone-categoria fi fi-rr-${icone}" aria-hidden="true"></i><strong>${escaparHtml(categoria.nome)}</strong>
+             </a>`;
+      })
       .join("");
   } catch (error) {
     document.getElementById("categorias").innerHTML =
@@ -23,13 +38,13 @@ async function carregarProdutos() {
     document.getElementById("carrossel").innerHTML = produtos
       .map(
         (produto) => `
-            <article class="produto-card">
-                <a href="/src/pages/produto.html?id=${produto.id}">
-                    <img src="${produto.imagem}" alt="${produto.nome}">
+            <article class="produto-card glass">
+                <a href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">
+                    <img src="${escaparHtml(imagemProduto(produto.imagem, produto.categoria))}" alt="${escaparHtml(produto.nome)}" loading="lazy">
                 </a>
                 <div class="produto-info">
-                    <small>${produto.categoria}</small>
-                    <h3><a href="/src/pages/produto.html?id=${produto.id}">${produto.nome}</a></h3>
+                    <small>${escaparHtml(produto.categoria)}</small>
+                    <h3><a href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">${escaparHtml(produto.nome)}</a></h3>
                     <div class="preco">${dinheiro(produto.preco)}</div>
                 </div>
             </article>
@@ -56,7 +71,6 @@ function iniciarParallax() {
     if (rect.bottom > 0 && rect.top < window.innerHeight) {
       const scrollY = window.scrollY;
       banner.style.setProperty("--parallax-texto", `${scrollY * 0.1}px`);
-      banner.style.setProperty("--parallax-sol", `${scrollY * 0.1}px`);
     }
 
     ticking = false;
@@ -77,12 +91,22 @@ function iniciarParallax() {
 document.getElementById("proximo").addEventListener("click", () => {
   document
     .getElementById("carrossel")
-    .scrollBy({ left: 280, behavior: "smooth" });
+    .scrollBy({
+      left: 280,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
 });
 document.getElementById("anterior").addEventListener("click", () => {
   document
     .getElementById("carrossel")
-    .scrollBy({ left: -280, behavior: "smooth" });
+    .scrollBy({
+      left: -280,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
 });
 document.getElementById("busca").addEventListener("submit", (evento) => {
   evento.preventDefault();

@@ -3,35 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Meu perfil | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu"><a href="/src/pages/pedidos.html">Meus pedidos</a></nav>
+      <nav class="menu" aria-label="Navegação principal">
+        <a href="/src/pages/pedidos.html">Meus pedidos</a>
+      </nav>
       <div class="acoes">
-        <a class="acao" href="/src/pages/carrinho.html"
-          >🛒<span class="contador">0</span></a
+        <a class="acao" href="/src/pages/carrinho.html" aria-label="Carrinho"
+          ><i class="fi fi-rr-shopping-cart" aria-hidden="true"></i>
+          <span class="contador" aria-live="polite">0</span></a
         >
       </div>
     </header>
     <main class="conteudo">
-      <section class="painel">
-        <h1>Meu perfil</h1>
+      <section class="painel" aria-labelledby="titulo-perfil">
+        <h1 id="titulo-perfil">Meu perfil</h1>
         <form class="form-grid" id="perfil"></form>
         <button
           class="botao botao-secundario"
           id="sair"
           type="button"
-          style="margin-top: 12px"
         >
           Sair da conta
         </button>
       </section>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/pages/perfil.js"></script>
   </body>
 </html>

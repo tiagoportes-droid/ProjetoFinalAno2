@@ -33,8 +33,7 @@ export async function cadastrar(req, res) {
     });
   } catch (error) {
     console.error("Erro ao cadastrar:", error);
-    if (error.code === "ER_DUP_ENTRY") // Erro de quando o e-mail ou CPF já está cadastrado
-    {
+    if (error.code === "ER_DUP_ENTRY") {
       return res
         .status(409)
         .json({ mensagem: "Este e-mail ou CPF já está cadastrado." });

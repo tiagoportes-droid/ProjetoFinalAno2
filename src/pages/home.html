@@ -3,15 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GreenEnergy | Energia solar</title>
+    <script src="/src/theme.js"></script>
+    <title>GreenEnergy | Catálogo de equipamentos fotovoltaicos</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu">
+      <nav class="menu" aria-label="Navegação principal">
         <a href="/src/pages/produtos.html">Produtos</a>
         <a href="/src/pages/produtos.html?categoria=Kits solares"
           >Kits solares</a
@@ -20,94 +26,159 @@
           >Painéis</a
         >
       </nav>
-      <form class="busca" id="busca">
-        <input name="busca" placeholder="Buscar produtos solares" /><button>
-          Buscar
+      <form class="busca" id="busca" role="search">
+        <label class="sr-only" for="termo-busca">Buscar produtos solares</label>
+        <input
+          id="termo-busca"
+          name="busca"
+          type="search"
+          placeholder="Buscar produtos solares"
+        />
+        <button type="submit">
+          <i class="fi fi-rr-search" aria-hidden="true"></i> Buscar
         </button>
       </form>
       <div class="acoes">
-        <a class="acao" href="/src/pages/perfil.html" title="Meu perfil">👤</a>
-        <a class="acao" href="/src/pages/carrinho.html" title="Carrinho"
-          >🛒<span class="contador">0</span></a
+        <a class="acao" href="/src/pages/perfil.html" aria-label="Meu perfil"
+          ><i class="fi fi-rr-user" aria-hidden="true"></i></a
+        >
+        <a class="acao" href="/src/pages/carrinho.html" aria-label="Carrinho"
+          ><i class="fi fi-rr-shopping-cart" aria-hidden="true"></i>
+          <span class="contador" aria-live="polite">0</span></a
         >
       </div>
     </header>
     <main class="conteudo">
-      <section class="banner">
+      <section class="banner" aria-labelledby="titulo-principal">
+        <img
+          class="banner-imagem"
+          src="/src/assets/images/solar-rooftop.jpg"
+          alt=""
+          width="5184"
+          height="3456"
+          fetchpriority="high"
+          decoding="async"
+        />
         <div class="banner-texto">
-          <h1>Energia limpa começa aqui.</h1>
+          <span class="banner-eyebrow">
+            <i class="fi fi-rr-sun" aria-hidden="true"></i>
+            Energia solar fotovoltaica
+          </span>
+          <h1 id="titulo-principal">Equipamentos solares para cada projeto.</h1>
           <p>
-            Equipamentos solares selecionados para gerar economia e contribuir
-            com um futuro sustentável.
+            Compare painéis, inversores, baterias e acessórios para montar o
+            sistema adequado ao seu espaço e consumo.
           </p>
-          <a
-            class="botao"
-            href="/src/pages/produtos.html"
-            style="display: inline-block; width: auto"
-            >Ver produtos</a
-          >
+          <a class="botao" href="/src/pages/produtos.html">Ver produtos</a>
         </div>
-        <div class="banner-sol"></div>
       </section>
-      <section>
-        <div class="titulo-secao"><h2>Categorias</h2></div>
+      <section aria-labelledby="titulo-categorias">
+        <div class="titulo-secao"><h2 id="titulo-categorias">Categorias</h2></div>
         <div class="categorias" id="categorias"></div>
       </section>
-      <section>
+      <section aria-labelledby="titulo-destaques">
         <div class="titulo-secao">
-          <h2>Produtos em destaque</h2>
-          <a href="/src/pages/produtos.html">Ver catálogo →</a>
+          <h2 id="titulo-destaques">Produtos em destaque</h2>
+          <a href="/src/pages/produtos.html">Ver catálogo</a>
         </div>
         <div class="carrossel-area">
           <button
             class="seta seta-esquerda"
             id="anterior"
-            aria-label="Anterior"
+            type="button"
+            aria-label="Produtos anteriores"
+            aria-controls="carrossel"
           >
-            ‹
+            <i class="fi fi-rr-angle-small-left" aria-hidden="true"></i>
           </button>
-          <div class="carrossel" id="carrossel">
+          <div
+            class="carrossel"
+            id="carrossel"
+            role="region"
+            aria-label="Produtos em destaque"
+            aria-live="polite"
+          >
             <div class="carregando">Carregando produtos</div>
           </div>
-          <button class="seta seta-direita" id="proximo" aria-label="Próximo">
-            ›
+          <button
+            class="seta seta-direita"
+            id="proximo"
+            type="button"
+            aria-label="Próximos produtos"
+            aria-controls="carrossel"
+          >
+            <i class="fi fi-rr-angle-small-right" aria-hidden="true"></i>
           </button>
         </div>
       </section>
-      <section>
-        <div class="titulo-secao"><h2>Benefícios da energia solar</h2></div>
+      <section aria-labelledby="titulo-beneficios">
+        <div class="titulo-secao">
+          <h2 id="titulo-beneficios">Benefícios da energia solar</h2>
+        </div>
         <div class="beneficios">
           <article class="beneficio">
             <h3>Economia na conta</h3>
-            <p>Reduza o consumo de energia da rede elétrica.</p>
+            <p>
+              A geração solar pode reduzir a energia comprada da rede. O
+              resultado depende do consumo e do dimensionamento do sistema.
+            </p>
           </article>
           <article class="beneficio">
             <h3>Energia sustentável</h3>
-            <p>Utilize uma fonte limpa e renovável.</p>
+            <p>
+              Os painéis convertem a luz do sol em eletricidade sem combustão
+              durante a geração.
+            </p>
           </article>
           <article class="beneficio">
             <h3>Mais autonomia</h3>
-            <p>Produza energia no seu próprio espaço.</p>
+            <p>
+              Com baterias e inversor híbrido, parte da energia gerada pode
+              ficar disponível depois do pôr do sol.
+            </p>
           </article>
         </div>
       </section>
-      <section class="institucional">
+      <section
+        class="instalacao-fotovoltaica"
+        aria-labelledby="titulo-instalacao"
+      >
+        <img
+          src="/src/assets/images/solar-field.jpg"
+          alt="Vista aérea de fileiras de painéis em uma usina fotovoltaica"
+          width="5355"
+          height="3009"
+          loading="lazy"
+          decoding="async"
+        />
         <div>
-          <h2>Conheça a GreenEnergy</h2>
+          <small>Geração fotovoltaica</small>
+          <h2 id="titulo-instalacao">Da instalação à energia gerada</h2>
           <p>
-            Somos uma loja acadêmica especializada em equipamentos de energia
-            renovável, oferecendo orientação sobre sistemas solares para
-            residências e pequenos negócios.
+            A orientação, a inclinação e o sombreamento dos módulos influenciam
+            a produção. Cada projeto precisa considerar as condições do local.
           </p>
         </div>
-        <div><strong>Missão:</strong> facilitar o acesso à energia limpa.</div>
+      </section>
+      <section class="institucional" aria-labelledby="titulo-institucional">
+        <div>
+          <h2 id="titulo-institucional">Conheça a GreenEnergy</h2>
+          <p>
+            A GreenEnergy é um catálogo acadêmico de equipamentos fotovoltaicos.
+            Reúne itens de geração, controle e armazenamento para facilitar a
+            comparação antes da compra.
+          </p>
+        </div>
+        <div>
+          Compare potência, tecnologia, estoque e preço antes de escolher.
+        </div>
       </section>
     </main>
     <footer class="rodape">
       <div class="rodape-grid">
         <div>
           <strong>GreenEnergy</strong>
-          <p>Projeto integrador — energia solar.</p>
+          <p>Projeto integrador de energia solar.</p>
         </div>
         <div>
           <strong>Equipe</strong>
@@ -118,6 +189,61 @@
           <p>contato@greenenergy.com</p>
         </div>
       </div>
+      <p class="creditos">
+        Ícones por
+        <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+          >Flaticon UIcons</a
+        >.
+      </p>
+      <details class="creditos-imagens" id="creditos-imagens">
+        <summary>Créditos de imagens e referências</summary>
+        <div class="lista-creditos-imagens">
+          <p>
+            Banner da página inicial: módulos em telhado, por Towfiqu barbhuiya,
+            via
+            <a
+              href="https://www.pexels.com/photo/an-aerial-shot-of-a-roof-with-solar-panels-12606669/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Pexels</a
+            >. Uso conforme a
+            <a
+              href="https://www.pexels.com/license/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >licença Pexels</a
+            >.
+          </p>
+          <p>
+            Seção de geração solar e vitrine do catálogo: foto de Kelly, via
+            <a
+              href="https://www.pexels.com/photo/rows-of-solar-modules-in-photovoltaic-power-station-4320480/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Pexels</a
+            >. Uso conforme a
+            <a
+              href="https://www.pexels.com/license/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >licença Pexels</a
+            >.
+          </p>
+          <p>
+            Imagens de produto (painel, kit solar, inversor, controlador,
+            bateria e acessório): ilustrações SVG locais do catálogo GreenEnergy.
+          </p>
+          <p>
+            Referência de categorias e tecnologias: catálogo
+            <a
+              href="https://www.neosolar.com.br/loja"
+              target="_blank"
+              rel="noopener noreferrer"
+              >NeoSolar</a
+            >. As fotografias de produtos da loja não foram copiadas.
+          </p>
+        </div>
+      </details>
     </footer>
     <script type="module" src="/src/pages/home.js"></script>
   </body>

@@ -1,4 +1,30 @@
 const URL = "http://localhost:3000";
+const entidadesHtml = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+const imagensPorCategoria = {
+  "Acessórios": "/src/assets/acessorio.png",
+  Baterias: "/src/assets/bateria.png",
+  "Controladores de carga": "/src/assets/controlador.png",
+  Inversores: "/src/assets/inversor.png",
+  "Kits solares": "/src/assets/kit-solar.png",
+  "Painéis fotovoltaicos": "/src/assets/painel.png",
+};
+
+export function escaparHtml(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, (caractere) =>
+    entidadesHtml[caractere],
+  );
+}
+
+export function imagemProduto(imagem, categoria) {
+  if (typeof imagem === "string" && imagem.trim()) return imagem.trim();
+  return imagensPorCategoria[categoria] || "/src/assets/acessorio.png";
+}
 
 export async function api(url, opcoes = {}) {
   const token = localStorage.getItem("greenenergy_token");
@@ -42,7 +68,12 @@ export async function atualizarContador() {
       0,
     );
     contador.textContent = String(quantidade);
+    contador.removeAttribute("aria-label");
+    contador.removeAttribute("title");
   } catch (error) {
-    contador.textContent = "0";
+    console.error("Não foi possível atualizar o carrinho.", error);
+    contador.textContent = "!";
+    contador.setAttribute("aria-label", "Não foi possível carregar o carrinho");
+    contador.title = "Carrinho indisponível";
   }
 }

@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Entrar | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/formularios/style.css" />
   </head>
   <body>
     <main>
       <a class="acesso-logo logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <section class="painel">
-        <h1>Entrar</h1>
+      <section class="painel" aria-labelledby="titulo-login">
+        <h1 id="titulo-login">Entrar</h1>
         <form class="form-grid" id="login">
-          <input type="email" name="email" placeholder="E-mail" required />
-          <input type="password" name="senha" placeholder="Senha" required />
-          <div id="mensagem"></div>
-          <button class="botao">Entrar</button>
+          <label for="email">E-mail</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            autocomplete="email"
+            required
+          />
+          <label for="senha">Senha</label>
+          <input
+            id="senha"
+            type="password"
+            name="senha"
+            autocomplete="current-password"
+            required
+          />
+          <div id="mensagem" role="status" aria-live="polite"></div>
+          <button class="botao" type="submit">Entrar</button>
         </form>
         <p>
           Ainda não tem conta?
@@ -27,6 +47,13 @@
         </p>
       </section>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/formularios/login.js"></script>
   </body>
 </html>

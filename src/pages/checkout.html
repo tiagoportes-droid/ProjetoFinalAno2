@@ -3,39 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Checkout | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu"><a href="/src/pages/carrinho.html">← Carrinho</a></nav>
+      <nav class="menu" aria-label="Navegação principal">
+        <a href="/src/pages/carrinho.html">Carrinho</a>
+      </nav>
     </header>
     <main class="conteudo">
       <h1>Finalizar compra</h1>
-      <section class="detalhe-produto">
-        <form class="painel" id="checkout" style="margin: 0">
+      <section class="detalhe-produto" aria-label="Finalização da compra">
+        <form class="painel" id="checkout">
           <h2>Dados da entrega</h2>
           <div class="form-grid">
+            <label for="endereco-entrega">Endereço completo</label>
             <input
+              id="endereco-entrega"
               name="endereco_entrega"
-              placeholder="Endereço completo"
               required
+              autocomplete="street-address"
             />
-            <select name="forma_pagamento">
+            <label for="forma-pagamento">Forma de pagamento</label>
+            <select id="forma-pagamento" name="forma_pagamento" required>
               <option>Pix</option>
               <option>Cartão de crédito</option>
               <option>Boleto</option>
             </select>
-            <div id="mensagem"></div>
-            <button class="botao">Confirmar compra</button>
+            <div id="mensagem" role="status" aria-live="polite"></div>
+            <button class="botao" type="submit">Confirmar compra</button>
           </div>
         </form>
         <div class="resumo" id="resumo"></div>
       </section>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/pages/checkout.js"></script>
   </body>
 </html>

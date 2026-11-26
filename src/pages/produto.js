@@ -1,32 +1,47 @@
-import { api, dinheiro, atualizarContador } from "../index.js";
+import {
+  api,
+  dinheiro,
+  escaparHtml,
+  imagemProduto,
+  atualizarContador,
+} from "../index.js";
 
 const id = new URLSearchParams(window.location.search).get("id");
+const container = document.getElementById("produto");
 
 async function carregar() {
+  if (!id) {
+    container.innerHTML =
+      '<div class="aviso aviso-erro">Produto não identificado. Volte ao catálogo e escolha um produto.</div>';
+    return;
+  }
+
   try {
-    const produto = await api(`/api/produtos/${id}`);
-    document.getElementById("produto").innerHTML = `
-            <section class="detalhe-produto">
-                <img src="${produto.imagem}" alt="${produto.nome}">
+    const produto = await api(`/api/produtos/${encodeURIComponent(id)}`);
+    const estoque = Number(produto.estoque);
+    container.innerHTML = `
+            <section class="detalhe-produto glass">
+                <img src="${escaparHtml(imagemProduto(produto.imagem, produto.categoria))}" alt="${escaparHtml(produto.nome)}">
                 <div>
-                    <small>${produto.categoria}</small>
-                    <h1>${produto.nome}</h1>
-                    <p>${produto.descricao}</p>
+                    <small class="badge">${escaparHtml(produto.categoria)}</small>
+                    <h1>${escaparHtml(produto.nome)}</h1>
+                    <p>${escaparHtml(produto.descricao)}</p>
                     <div class="preco">${dinheiro(produto.preco)}</div>
-                    <p>Estoque disponível: <strong>${produto.estoque}</strong></p>
-                    <div id="mensagem"></div>
+                    <p>Estoque disponível: <strong>${escaparHtml(estoque)}</strong></p>
+                    <div id="mensagem" role="status" aria-live="polite"></div>
                     <label for="quantidade">Quantidade</label>
-                    <input id="quantidade" type="number" min="1" max="${produto.estoque}" value="1" style="width:80px;padding:8px;margin:8px">
-                    <button class="botao" id="adicionar" style="max-width:280px">Adicionar ao carrinho</button>
+                    <input id="quantidade" type="number" min="1" max="${escaparHtml(estoque)}" value="1" ${estoque < 1 ? "disabled" : ""}>
+                    <button class="botao" id="adicionar" type="button" ${estoque < 1 ? "disabled" : ""}>${estoque < 1 ? "Produto indisponível" : "Adicionar ao carrinho"}</button>
                 </div>
             </section>
         `;
+    document.getElementById("produto").classList.remove("carregando");
     document
       .getElementById("adicionar")
       .addEventListener("click", adicionarAoCarrinho);
   } catch (error) {
-    document.getElementById("produto").innerHTML =
-      `<div class="aviso aviso-erro">${error.message}</div>`;
+    container.innerHTML =
+      `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
   }
 }
 
@@ -46,7 +61,7 @@ async function adicionarAoCarrinho() {
     atualizarContador();
   } catch (error) {
     document.getElementById("mensagem").innerHTML =
-      `<div class="aviso aviso-erro">${error.message}</div>`;
+      `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
   }
 }
 

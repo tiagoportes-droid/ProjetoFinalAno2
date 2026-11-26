@@ -49,6 +49,12 @@ Depois altere `DB_USER=greenenergy` e `DB_PASSWORD` no `.env`.
 - `backend/`: servidor, configuração, modelos, controllers, rotas e middleware.
 - `database/`: schema, dados demonstrativos, consultas e documentação do banco.
 
+## Créditos visuais
+
+A interface usa Flaticon UIcons 3.3.1 pelo CDN do unpkg. A escolha de tema claro ou escuro segue a preferência do sistema na primeira visita e fica salva no navegador após a alteração manual.
+
+As fotografias locais em `src/assets/images/` são de Towfiqu barbhuiya e Kelly, publicadas no Pexels sob a licença Pexels. Os links e créditos estão no rodapé da página inicial. As ilustrações de produtos permanecem em SVG local. Os arquivos de `src/` são servidos pelo próprio front-end em `/src/`.
+
 ## Testes manuais
 
 1. Abra a página inicial e consulte os produtos.

@@ -3,28 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Cadastrar produto | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu">
+      <nav class="menu" aria-label="Navegação principal">
         <a href="/src/pages/produtos.html">Catálogo</a>
         <a href="/src/pages/cadastro-produto.html">Cadastrar produto</a>
       </nav>
       <div class="acoes">
-        <a class="acao" href="/src/formularios/login.html" title="Entrar">👤</a>
-        <a class="acao" href="/src/pages/carrinho.html" title="Carrinho"
-          >🛒<span class="contador">0</span></a
+        <a class="acao" href="/src/formularios/login.html" aria-label="Entrar"
+          ><i class="fi fi-rr-user" aria-hidden="true"></i></a
+        >
+        <a class="acao" href="/src/pages/carrinho.html" aria-label="Carrinho"
+          ><i class="fi fi-rr-shopping-cart" aria-hidden="true"></i>
+          <span class="contador" aria-live="polite">0</span></a
         >
       </div>
     </header>
     <main class="conteudo">
-      <section class="painel painel-produto">
-        <h1>Cadastrar produto</h1>
+      <section class="painel painel-produto" aria-labelledby="titulo-cadastro">
+        <h1 id="titulo-cadastro">Cadastrar produto</h1>
         <p>Preencha os dados para adicionar um item ao catálogo.</p>
         <form class="form-grid" id="cadastro-produto">
           <label for="nome">Nome do produto</label>
@@ -86,20 +95,27 @@
             name="imagem"
             type="text"
             maxlength="255"
-            placeholder="/src/assets/painel.svg"
+            placeholder="/src/assets/painel.png"
           />
           <small
             >Opcional. Informe um endereço seguro ou o caminho de uma imagem
             existente no projeto.</small
           >
 
-          <div id="mensagem" aria-live="polite"></div>
+          <div id="mensagem" role="status" aria-live="polite"></div>
           <button class="botao" id="enviar" type="submit">
             Cadastrar produto
           </button>
         </form>
       </section>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/pages/cadastro-produto.js"></script>
   </body>
 </html>

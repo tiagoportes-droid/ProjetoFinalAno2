@@ -1,4 +1,4 @@
-import { api, dinheiro } from "../index.js";
+import { api, dinheiro, escaparHtml } from "../index.js";
 
 async function carregar() {
   if (!localStorage.getItem("greenenergy_token")) {
@@ -12,9 +12,9 @@ async function carregar() {
           .map(
             (pedido) => `
             <article class="pedido">
-                <h3>Pedido #${pedido.id} — ${pedido.nota_numero}</h3>
-                <p>Status: ${pedido.status} | Total: <strong>${dinheiro(pedido.valor_total)}</strong></p>
-                <ul>${pedido.itens.map((item) => `<li>${item.quantidade}x ${item.produto} — ${dinheiro(item.subtotal)}</li>`).join("")}</ul>
+                <h3>Pedido #${escaparHtml(pedido.id)} | Nota ${escaparHtml(pedido.nota_numero)}</h3>
+                <p>Status: ${escaparHtml(pedido.status)} | Total: <strong>${dinheiro(pedido.valor_total)}</strong></p>
+                <ul>${pedido.itens.map((item) => `<li>${escaparHtml(item.quantidade)}x ${escaparHtml(item.produto)}, ${dinheiro(item.subtotal)}</li>`).join("")}</ul>
                 <small>${new Date(pedido.data_venda).toLocaleString("pt-BR")}</small>
             </article>
         `,
@@ -23,7 +23,7 @@ async function carregar() {
       : "<p>Você ainda não realizou compras.</p>";
   } catch (error) {
     document.getElementById("pedidos").innerHTML =
-      `<div class="aviso aviso-erro">${error.message}</div>`;
+      `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
   }
 }
 

@@ -3,25 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Produto | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu"><a href="/src/pages/produtos.html">← Catálogo</a></nav>
+      <nav class="menu" aria-label="Navegação principal">
+        <a href="/src/pages/produtos.html">Catálogo</a>
+      </nav>
       <div class="acoes">
-        <a class="acao" href="/src/pages/perfil.html" title="Meu perfil">👤</a>
-        <a class="acao" href="/src/pages/carrinho.html" title="Carrinho"
-          >🛒<span class="contador">0</span></a
+        <a class="acao" href="/src/pages/perfil.html" aria-label="Meu perfil"
+          ><i class="fi fi-rr-user" aria-hidden="true"></i></a
+        >
+        <a class="acao" href="/src/pages/carrinho.html" aria-label="Carrinho"
+          ><i class="fi fi-rr-shopping-cart" aria-hidden="true"></i>
+          <span class="contador" aria-live="polite">0</span></a
         >
       </div>
     </header>
     <main class="conteudo">
-      <div id="produto" class="carregando">Carregando produto</div>
+      <div id="produto" class="carregando" role="status" aria-live="polite">
+        Carregando produto
+      </div>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/pages/produto.js"></script>
   </body>
 </html>

@@ -3,26 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Produtos | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu">
+      <nav class="menu" aria-label="Navegação principal">
         <a href="/src/pages/home.html">Início</a
         ><a href="/src/pages/produtos.html">Produtos</a>
       </nav>
       <div class="acoes">
-        <a class="acao" href="/src/pages/perfil.html" title="Meu perfil">👤</a>
-        <a class="acao" href="/src/pages/carrinho.html" title="Carrinho"
-          >🛒<span class="contador">0</span></a
+        <a class="acao" href="/src/pages/perfil.html" aria-label="Meu perfil"
+          ><i class="fi fi-rr-user" aria-hidden="true"></i></a
+        >
+        <a class="acao" href="/src/pages/carrinho.html" aria-label="Carrinho"
+          ><i class="fi fi-rr-shopping-cart" aria-hidden="true"></i>
+          <span class="contador" aria-live="polite">0</span></a
         >
       </div>
     </header>
     <main class="conteudo">
+      <section class="catalogo-banner" aria-labelledby="titulo-vitrine-catalogo">
+        <img
+          src="/src/assets/images/solar-field.jpg"
+          alt=""
+          width="5355"
+          height="3009"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div>
+          <span>Energia solar</span>
+          <h2 id="titulo-vitrine-catalogo">
+            Componentes para diferentes tipos de instalação
+          </h2>
+          <p>
+            Compare módulos, inversores, baterias e controladores para encontrar
+            os itens adequados ao seu projeto.
+          </p>
+        </div>
+      </section>
       <div class="titulo-catalogo">
         <h1>Catálogo de produtos</h1>
         <a
@@ -31,11 +60,14 @@
           >Cadastrar produto</a
         >
       </div>
-      <div class="controles">
-        <input id="busca" placeholder="Pesquisar produtos" />
+      <div class="controles" role="search">
+        <label class="sr-only" for="busca">Pesquisar produtos</label>
+        <input id="busca" type="search" placeholder="Pesquisar produtos" />
+        <label class="sr-only" for="categoria">Filtrar por categoria</label>
         <select id="categoria">
           <option value="">Todas as categorias</option>
         </select>
+        <label class="sr-only" for="ordenar">Ordenar produtos</label>
         <select id="ordenar">
           <option value="">Mais recentes</option>
           <option value="menor">Menor preço</option>
@@ -43,10 +75,17 @@
           <option value="nome">Nome</option>
         </select>
       </div>
-      <div class="grade-produtos" id="produtos">
+      <div class="grade-produtos" id="produtos" aria-live="polite">
         <div class="carregando">Carregando</div>
       </div>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/pages/produtos.js"></script>
   </body>
 </html>

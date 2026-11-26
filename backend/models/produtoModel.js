@@ -59,7 +59,6 @@ export async function criar({
   estoque,
   imagem,
 }) {
-  // Os placeholders separam os dados do formulário do comando SQL.
   const [resultado] = await pool.execute(
     `INSERT INTO produto (categoria_id, nome, descricao, preco, estoque, imagem)
      VALUES (?, ?, ?, ?, ?, ?)`,

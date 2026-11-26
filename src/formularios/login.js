@@ -1,4 +1,4 @@
-import { api } from "../index.js";
+import { api, escaparHtml } from "../index.js";
 
 document.getElementById("login").addEventListener("submit", async (evento) => {
   evento.preventDefault();
@@ -16,6 +16,6 @@ document.getElementById("login").addEventListener("submit", async (evento) => {
     window.location.href = "/src/pages/home.html";
   } catch (error) {
     document.getElementById("mensagem").innerHTML =
-      `<div class="aviso aviso-erro">${error.message}</div>`;
+      `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
   }
 });

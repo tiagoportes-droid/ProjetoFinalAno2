@@ -1,4 +1,4 @@
-import { api } from "../index.js";
+import { api, escaparHtml } from "../index.js";
 
 const formulario = document.getElementById("cadastro-produto");
 const seletorCategoria = document.getElementById("categoria_id");
@@ -13,13 +13,14 @@ async function carregarCategorias() {
       categorias
         .map(
           (categoria) =>
-            `<option value="${categoria.id}">${categoria.nome}</option>`,
+            `<option value="${escaparHtml(categoria.id)}">${escaparHtml(categoria.nome)}</option>`,
         )
         .join("");
   } catch (error) {
     seletorCategoria.innerHTML =
       '<option value="">Não foi possível carregar as categorias</option>';
-    mensagem.innerHTML = `<div class="aviso aviso-erro">${error.message}</div>`;
+    mensagem.innerHTML =
+      `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
   }
 }
 
@@ -29,7 +30,6 @@ formulario.addEventListener("submit", async (evento) => {
   botao.disabled = true;
 
   const dados = Object.fromEntries(new FormData(formulario));
-  // Envia números à API, que repete a validação antes de gravar no banco.
   dados.categoria_id = Number(dados.categoria_id);
   dados.preco = Number(dados.preco);
   dados.estoque = Number(dados.estoque);
@@ -45,7 +45,8 @@ formulario.addEventListener("submit", async (evento) => {
       window.location.href = "/src/pages/produtos.html";
     }, 1000);
   } catch (error) {
-    mensagem.innerHTML = `<div class="aviso aviso-erro">${error.message}</div>`;
+    mensagem.innerHTML =
+      `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
     botao.disabled = false;
   }
 });

@@ -16,11 +16,12 @@ export async function buscarCarrinho(clienteId) {
   }
 
   const [itens] = await pool.query(
-    `SELECT i.id, i.quantidade, p.id AS produto_id, p.nome,
+    `SELECT i.id, i.quantidade, p.id AS produto_id, p.nome, c.nome AS categoria,
                 p.preco, p.estoque, p.imagem,
                 (i.quantidade * p.preco) AS subtotal
          FROM item_carrinho i
          INNER JOIN produto p ON p.id = i.produto_id
+         INNER JOIN categoria c ON c.id = p.categoria_id
          WHERE i.carrinho_id = ?
          ORDER BY i.id`,
     [carrinho.id],

@@ -1,9 +1,17 @@
-import { api, dinheiro, atualizarContador } from "../index.js";
+import {
+  api,
+  dinheiro,
+  escaparHtml,
+  imagemProduto,
+  atualizarContador,
+} from "../index.js";
 
 const parametros = new URLSearchParams(window.location.search);
 const busca = document.getElementById("busca");
 const categoria = document.getElementById("categoria");
 const ordenar = document.getElementById("ordenar");
+let temporizadorBusca;
+let requisicaoAtual = 0;
 
 busca.value = parametros.get("busca") || "";
 categoria.value = parametros.get("categoria") || "";
@@ -12,7 +20,10 @@ async function carregarCategorias() {
   try {
     const categorias = await api("/api/produtos/categorias");
     categoria.innerHTML += categorias
-      .map((item) => `<option value="${item.nome}">${item.nome}</option>`)
+      .map(
+        (item) =>
+          `<option value="${escaparHtml(item.nome)}">${escaparHtml(item.nome)}</option>`,
+      )
       .join("");
     categoria.value = parametros.get("categoria") || "";
   } catch (error) {
@@ -21,6 +32,7 @@ async function carregarCategorias() {
 }
 
 async function carregarProdutos() {
+  const requisicao = ++requisicaoAtual;
   const consulta = new URLSearchParams();
   if (busca.value) consulta.set("busca", busca.value);
   if (categoria.value) consulta.set("categoria", categoria.value);
@@ -30,18 +42,19 @@ async function carregarProdutos() {
     document.getElementById("produtos").innerHTML =
       '<div class="carregando">Carregando</div>';
     const produtos = await api(`/api/produtos?${consulta}`);
+    if (requisicao !== requisicaoAtual) return;
     document.getElementById("produtos").innerHTML = produtos.length
       ? produtos
           .map(
             (produto) => `
-            <article class="produto-card">
-                <a href="/src/pages/produto.html?id=${produto.id}"><img src="${produto.imagem}" alt="${produto.nome}"></a>
+            <article class="produto-card glass">
+                <a href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}"><img src="${escaparHtml(imagemProduto(produto.imagem, produto.categoria))}" alt="${escaparHtml(produto.nome)}" loading="lazy"></a>
                 <div class="produto-info">
-                    <small>${produto.categoria}</small>
-                    <h3><a href="/src/pages/produto.html?id=${produto.id}">${produto.nome}</a></h3>
+                    <small>${escaparHtml(produto.categoria)}</small>
+                    <h3><a href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">${escaparHtml(produto.nome)}</a></h3>
                     <div class="preco">${dinheiro(produto.preco)}</div>
-                    <p>Estoque: ${produto.estoque}</p>
-                    <a class="botao" style="display:block;text-align:center" href="/src/pages/produto.html?id=${produto.id}">Ver detalhes</a>
+                    <p>Estoque: ${escaparHtml(produto.estoque)}</p>
+                    <a class="botao" href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">Ver detalhes</a>
                 </div>
             </article>
         `,
@@ -49,12 +62,17 @@ async function carregarProdutos() {
           .join("")
       : "<p>Nenhum produto encontrado.</p>";
   } catch (error) {
-    document.getElementById("produtos").innerHTML =
-      `<div class="aviso aviso-erro">${error.message}</div>`;
+    if (requisicao === requisicaoAtual) {
+      document.getElementById("produtos").innerHTML =
+        `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
+    }
   }
 }
 
-busca.addEventListener("input", carregarProdutos);
+busca.addEventListener("input", () => {
+  window.clearTimeout(temporizadorBusca);
+  temporizadorBusca = window.setTimeout(carregarProdutos, 250);
+});
 categoria.addEventListener("change", carregarProdutos);
 ordenar.addEventListener("change", carregarProdutos);
 carregarCategorias();

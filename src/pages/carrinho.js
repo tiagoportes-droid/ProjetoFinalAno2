@@ -1,4 +1,18 @@
-import { api, dinheiro, atualizarContador } from "../index.js";
+import {
+  api,
+  dinheiro,
+  escaparHtml,
+  imagemProduto,
+  atualizarContador,
+} from "../index.js";
+
+const itensContainer = document.getElementById("itens");
+const mensagem = document.getElementById("mensagem");
+
+function mostrarErro(error) {
+  mensagem.innerHTML =
+    `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
+}
 
 async function carregar() {
   if (!localStorage.getItem("greenenergy_token")) {
@@ -7,61 +21,76 @@ async function carregar() {
   }
   try {
     const carrinho = await api("/api/carrinho");
-    document.getElementById("itens").innerHTML = carrinho.itens.length
+    itensContainer.innerHTML = carrinho.itens.length
       ? carrinho.itens
           .map(
             (item) => `
-            <div class="linha-carrinho">
-                <img src="${item.imagem}" alt="${item.nome}">
-                <div><strong>${item.nome}</strong><br><small>${dinheiro(item.preco)}</small></div>
-                <input class="quantidade" type="number" min="1" max="${item.estoque}" value="${item.quantidade}" data-id="${item.id}">
+            <div class="linha-carrinho glass">
+                <img src="${escaparHtml(imagemProduto(item.imagem, item.categoria))}" alt="${escaparHtml(item.nome)}" loading="lazy">
+                <div><strong>${escaparHtml(item.nome)}</strong><br><small>${dinheiro(item.preco)}</small></div>
+                <input class="quantidade" type="number" min="1" max="${escaparHtml(item.estoque)}" value="${escaparHtml(item.quantidade)}" data-id="${escaparHtml(item.id)}" aria-label="Quantidade de ${escaparHtml(item.nome)}">
                 <strong class="subtotal">${dinheiro(item.subtotal)}</strong>
-                <button class="remover acao" data-id="${item.id}" title="Remover">✕</button>
+                <button class="remover acao" type="button" data-id="${escaparHtml(item.id)}" aria-label="Remover ${escaparHtml(item.nome)} do carrinho"><i class="fi fi-rr-trash" aria-hidden="true"></i></button>
             </div>
         `,
           )
           .join("")
       : "<p>Seu carrinho está vazio.</p>";
 
-    document.getElementById("resumo").innerHTML = `
+    document.getElementById("resumo").innerHTML = carrinho.itens.length ? `
+            <h2>Resumo do pedido</h2>
             <p>Subtotal: <strong>${dinheiro(carrinho.total)}</strong></p>
             <p>Total: <strong>${dinheiro(carrinho.total)}</strong></p>
-            ${carrinho.itens.length ? '<a class="botao" style="display:block;text-align:center" href="/src/pages/checkout.html">Ir para checkout</a>' : ""}
-            ${carrinho.itens.length ? '<button class="botao botao-secundario" id="limpar" style="margin-top:8px">Limpar carrinho</button>' : ""}
-        `;
+            <a class="botao" href="/src/pages/checkout.html">Ir para checkout</a>
+            <button class="botao botao-secundario" id="limpar" type="button">Limpar carrinho</button>
+        ` : "";
 
     document.querySelectorAll(".quantidade").forEach((campo) => {
       campo.addEventListener("change", async () => {
         try {
+          campo.disabled = true;
           await api(`/api/carrinho/itens/${campo.dataset.id}`, {
             method: "PUT",
             body: JSON.stringify({ quantidade: Number(campo.value) }),
           });
-          carregar();
+          await carregar();
         } catch (error) {
-          document.getElementById("mensagem").innerHTML =
-            `<div class="aviso aviso-erro">${error.message}</div>`;
+          campo.disabled = false;
+          mostrarErro(error);
         }
       });
     });
     document.querySelectorAll(".remover").forEach((botao) => {
       botao.addEventListener("click", async () => {
-        await api(`/api/carrinho/itens/${botao.dataset.id}`, {
-          method: "DELETE",
-        });
-        carregar();
+        try {
+          botao.disabled = true;
+          await api(`/api/carrinho/itens/${botao.dataset.id}`, {
+            method: "DELETE",
+          });
+          await carregar();
+        } catch (error) {
+          botao.disabled = false;
+          mostrarErro(error);
+        }
       });
     });
     const limpar = document.getElementById("limpar");
     if (limpar)
       limpar.addEventListener("click", async () => {
-        await api("/api/carrinho", { method: "DELETE" });
-        carregar();
+        try {
+          limpar.disabled = true;
+          await api("/api/carrinho", { method: "DELETE" });
+          await carregar();
+        } catch (error) {
+          limpar.disabled = false;
+          mostrarErro(error);
+        }
       });
     atualizarContador();
   } catch (error) {
-    document.getElementById("mensagem").innerHTML =
-      `<div class="aviso aviso-erro">${error.message}</div>`;
+    itensContainer.innerHTML = "";
+    document.getElementById("resumo").innerHTML = "";
+    mostrarErro(error);
   }
 }
 

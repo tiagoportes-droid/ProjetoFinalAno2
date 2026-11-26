@@ -3,29 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="/src/theme.js"></script>
     <title>Carrinho | GreenEnergy</title>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@flaticon/flaticon-uicons@3.3.1/css/regular/rounded.css"
+    />
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
-        ><span class="logo-marca">☀</span> GreenEnergy</a
+        ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
       >
-      <nav class="menu">
+      <nav class="menu" aria-label="Navegação principal">
         <a href="/src/pages/produtos.html">Continuar comprando</a>
       </nav>
       <div class="acoes">
-        <a class="acao" href="/src/pages/perfil.html">👤</a>
+        <a class="acao" href="/src/pages/perfil.html" aria-label="Meu perfil"
+          ><i class="fi fi-rr-user" aria-hidden="true"></i></a
+        >
       </div>
     </header>
     <main class="conteudo">
       <h1>Meu carrinho</h1>
-      <div id="mensagem"></div>
-      <div class="tabela-carrinho" id="itens">
+      <div id="mensagem" role="status" aria-live="polite"></div>
+      <div class="tabela-carrinho" id="itens" aria-live="polite">
         <div class="carregando">Carregando carrinho</div>
       </div>
       <div class="resumo" id="resumo"></div>
     </main>
+    <footer class="creditos">
+      Ícones por
+      <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer"
+        >Flaticon UIcons</a
+      >.
+      <a href="/src/pages/home.html#creditos-imagens">Créditos de imagens</a>
+    </footer>
     <script type="module" src="/src/pages/carrinho.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import { api } from "../index.js";
+import { api, escaparHtml } from "../index.js";
 
 document
   .getElementById("cadastro")
@@ -19,6 +19,6 @@ document
       window.location.href = "/src/pages/perfil.html";
     } catch (error) {
       document.getElementById("mensagem").innerHTML =
-        `<div class="aviso aviso-erro">${error.message}</div>`;
+        `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
     }
   });
