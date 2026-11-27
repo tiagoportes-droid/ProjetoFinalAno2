@@ -68,6 +68,24 @@
   box-sizing: border-box;
 }
 
+.atalho-conteudo {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--green-950);
+  box-shadow: var(--glass-shadow);
+  transform: translateY(-160%);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.atalho-conteudo:focus {
+  transform: translateY(0);
+}
+
 html {
   min-width: 320px;
   scroll-behavior: smooth;
@@ -185,6 +203,8 @@ dialog,
 .resumo,
 .pedido,
 .linha-carrinho {
+  position: relative;
+  isolation: isolate;
   border: 1px solid var(--glass-edge);
   background-color: var(--glass-surface);
   background-image:
@@ -195,8 +215,72 @@ dialog,
       rgba(255, 255, 255, 0.04)
     );
   box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(108%);
+  backdrop-filter: blur(24px) saturate(180%) contrast(108%);
+}
+
+.glass::before,
+dialog::before,
+[role="dialog"]::before,
+.topo::before,
+.categoria::before,
+.produto-card::before,
+.beneficio::before,
+.institucional::before,
+.painel::before,
+.resumo::before,
+.pedido::before,
+.linha-carrinho::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle 230px at var(--liquid-x, 50%) var(--liquid-y, 0%),
+      rgba(255, 255, 255, var(--liquid-opacity, 0.28)),
+      rgba(255, 255, 255, 0.07) 38%,
+      transparent 68%
+    );
+  opacity: var(--liquid-opacity, 0.28);
+  transition: opacity var(--motion-normal) var(--ease-out);
+}
+
+.glass::after,
+dialog::after,
+[role="dialog"]::after,
+.topo::after,
+.categoria::after,
+.produto-card::after,
+.beneficio::after,
+.institucional::after,
+.painel::after,
+.resumo::after,
+.pedido::after,
+.linha-carrinho::after {
+  position: absolute;
+  z-index: 2;
+  inset: 1px;
+  content: "";
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.26),
+      transparent 24%,
+      transparent 72%,
+      rgba(255, 255, 255, 0.06)
+    );
+  mask-image: linear-gradient(#000, transparent 72%);
+}
+
+.topo,
+.resumo,
+.painel {
+  overflow: hidden;
 }
 
 dialog,
@@ -669,10 +753,18 @@ dialog::backdrop {
   transform: translateY(-5px);
   border-color: rgba(52, 211, 153, 0.54);
   box-shadow:
-    0 20px 56px rgba(6, 78, 59, 0.14),
+    0 22px 58px rgba(6, 78, 59, 0.16),
     0 3px 10px rgba(6, 78, 59, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
     inset 0 -1px 0 rgba(6, 78, 59, 0.05);
+}
+
+.categoria:hover,
+.produto-card:hover,
+.beneficio:hover,
+.linha-carrinho:hover,
+.pedido:hover {
+  --liquid-opacity: 0.52;
 }
 
 .carrossel-area {
@@ -817,6 +909,32 @@ dialog::backdrop {
   font-size: 0.9rem;
 }
 
+.produto-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 14px 0 16px;
+}
+
+.produto-estoque {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.produto-estoque::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  content: "";
+  background: var(--success);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
 .preco {
   color: var(--green-900);
   font-size: 1.38rem;
@@ -876,13 +994,32 @@ dialog::backdrop {
 }
 
 .beneficio {
+  position: relative;
   min-height: 188px;
   padding: clamp(22px, 3vw, 32px);
+  padding-left: clamp(84px, 8vw, 96px);
   border-left: 4px solid var(--green-500);
   border-radius: var(--radius-md);
   transition:
     transform var(--motion-normal) var(--ease-out),
     box-shadow var(--motion-normal) var(--ease-out);
+}
+
+.beneficio-icone {
+  position: absolute;
+  top: clamp(22px, 3vw, 32px);
+  left: clamp(18px, 2.4vw, 28px);
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  border-radius: 50%;
+  color: var(--green-800);
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.9), transparent 48%),
+    rgba(16, 185, 129, 0.16);
+  box-shadow: inset 0 1px 0 var(--glass-edge);
 }
 
 .beneficio h3 {
@@ -1016,18 +1153,32 @@ dialog::backdrop {
 }
 
 .controles {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(180px, 220px) minmax(180px, 220px);
   gap: 12px;
   margin: 0 0 24px;
+  padding: 10px;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-md);
+  background: var(--glass-surface);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
 }
 
 .controles input {
-  flex: 1 1 240px;
+  width: 100%;
 }
 
 .controles select {
-  flex: 0 1 220px;
+  width: 100%;
+}
+
+.resultado-catalogo {
+  min-height: 24px;
+  margin: -8px 2px 14px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
 }
 
 input,
@@ -1237,6 +1388,15 @@ textarea:focus {
   gap: 16px;
   padding: 14px;
   border-radius: var(--radius-md);
+  transition:
+    transform var(--motion-normal) var(--ease-out),
+    border-color var(--motion-normal) var(--ease-out),
+    box-shadow var(--motion-normal) var(--ease-out);
+}
+
+.linha-carrinho:hover {
+  transform: translateX(-3px);
+  border-color: rgba(52, 211, 153, 0.48);
 }
 
 .linha-carrinho img {
@@ -1264,6 +1424,51 @@ textarea:focus {
 
 .resumo > :last-child {
   margin-bottom: 0;
+}
+
+.estado-carrinho-vazio {
+  display: grid;
+  min-height: 290px;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  padding: 32px;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(52, 211, 153, 0.14), transparent 12rem),
+    var(--glass-surface);
+  text-align: center;
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+}
+
+.estado-carrinho-vazio > .fi {
+  display: grid;
+  width: 68px;
+  height: 68px;
+  place-items: center;
+  border: 1px solid var(--glass-edge);
+  border-radius: 50%;
+  color: var(--green-800);
+  background: var(--glass-highlight);
+  font-size: 28px;
+}
+
+.estado-carrinho-vazio h2,
+.estado-carrinho-vazio p {
+  margin: 0;
+}
+
+.estado-carrinho-vazio p {
+  max-width: 46ch;
+  color: var(--text-muted);
+}
+
+.estado-carrinho-vazio .botao {
+  width: min(100%, 220px);
+  margin-top: 8px;
 }
 
 .pedido {
@@ -1418,6 +1623,7 @@ textarea:focus {
 
   .beneficio {
     min-height: auto;
+    padding: 22px 22px 22px 84px;
   }
 
   .institucional {
@@ -1571,5 +1777,20 @@ textarea:focus {
 
   .banner-texto {
     transform: none !important;
+  }
+
+  .glass::before,
+  dialog::before,
+  [role="dialog"]::before,
+  .topo::before,
+  .categoria::before,
+  .produto-card::before,
+  .beneficio::before,
+  .institucional::before,
+  .painel::before,
+  .resumo::before,
+  .pedido::before,
+  .linha-carrinho::before {
+    display: none;
   }
 }

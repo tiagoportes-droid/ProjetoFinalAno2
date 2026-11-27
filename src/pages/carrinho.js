@@ -35,7 +35,7 @@ async function carregar() {
         `,
           )
           .join("")
-      : "<p>Seu carrinho está vazio.</p>";
+      : '<div class="estado-carrinho-vazio"><i class="fi fi-rr-shopping-cart" aria-hidden="true"></i><h2>Seu carrinho está vazio</h2><p>Explore o catálogo e adicione os equipamentos que mais combinam com seu projeto.</p><a class="botao" href="/src/pages/produtos.html">Explorar produtos</a></div>';
 
     document.getElementById("resumo").innerHTML = carrinho.itens.length ? `
             <h2>Resumo do pedido</h2>

@@ -57,7 +57,7 @@ async function adicionarAoCarrinho() {
       body: JSON.stringify({ produto_id: Number(id), quantidade }),
     });
     document.getElementById("mensagem").innerHTML =
-      '<div class="aviso aviso-sucesso">Produto adicionado ao carrinho.</div>';
+      '<div class="aviso aviso-sucesso">Produto adicionado ao carrinho. <a href="/src/pages/carrinho.html"><strong>Ver carrinho</strong></a></div>';
     atualizarContador();
   } catch (error) {
     document.getElementById("mensagem").innerHTML =

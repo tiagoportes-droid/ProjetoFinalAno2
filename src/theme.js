@@ -87,3 +87,44 @@ if (preferenciasSistema.addEventListener) {
 } else {
   preferenciasSistema.addListener(acompanharPreferenciaSistema);
 }
+
+const movimentoReducido = window.matchMedia("(prefers-reduced-motion: reduce)");
+let elementoLiquidoAtivo = null;
+let quadroLiquido = null;
+
+function atualizarDestaque(evento) {
+  if (movimentoReducido.matches) return;
+
+  const alvo = evento.target.closest(
+    ".glass, dialog, [role='dialog'], .topo, .categoria, .produto-card, .beneficio, .institucional, .painel, .resumo, .pedido, .linha-carrinho",
+  );
+
+  if (!alvo) {
+    if (elementoLiquidoAtivo) {
+      elementoLiquidoAtivo.style.removeProperty("--liquid-x");
+      elementoLiquidoAtivo.style.removeProperty("--liquid-y");
+      elementoLiquidoAtivo = null;
+    }
+    return;
+  }
+
+  elementoLiquidoAtivo = alvo;
+
+  if (quadroLiquido) cancelAnimationFrame(quadroLiquido);
+  quadroLiquido = requestAnimationFrame(() => {
+    const limites = alvo.getBoundingClientRect();
+    const x = Math.max(0, Math.min(limites.width, evento.clientX - limites.left));
+    const y = Math.max(0, Math.min(limites.height, evento.clientY - limites.top));
+    alvo.style.setProperty("--liquid-x", `${((x / limites.width) * 100).toFixed(1)}%`);
+    alvo.style.setProperty("--liquid-y", `${((y / limites.height) * 100).toFixed(1)}%`);
+  });
+}
+
+document.addEventListener("pointermove", atualizarDestaque, { passive: true });
+
+document.addEventListener("pointerleave", () => {
+  if (!elementoLiquidoAtivo) return;
+  elementoLiquidoAtivo.style.removeProperty("--liquid-x");
+  elementoLiquidoAtivo.style.removeProperty("--liquid-y");
+  elementoLiquidoAtivo = null;
+});

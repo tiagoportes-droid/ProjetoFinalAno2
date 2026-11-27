@@ -41,8 +41,14 @@ async function carregarProdutos() {
   try {
     document.getElementById("produtos").innerHTML =
       '<div class="carregando">Carregando</div>';
+    document.getElementById("resultado-catalogo").textContent =
+      "Buscando produtos...";
     const produtos = await api(`/api/produtos?${consulta}`);
     if (requisicao !== requisicaoAtual) return;
+    document.getElementById("resultado-catalogo").textContent =
+      produtos.length
+        ? `${produtos.length} ${produtos.length === 1 ? "produto encontrado" : "produtos encontrados"}`
+        : "Nenhum produto encontrado";
     document.getElementById("produtos").innerHTML = produtos.length
       ? produtos
           .map(
@@ -53,8 +59,10 @@ async function carregarProdutos() {
                     <small>${escaparHtml(produto.categoria)}</small>
                     <h3><a href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">${escaparHtml(produto.nome)}</a></h3>
                     <div class="preco">${dinheiro(produto.preco)}</div>
-                    <p>Estoque: ${escaparHtml(produto.estoque)}</p>
-                    <a class="botao" href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">Ver detalhes</a>
+                    <div class="produto-meta">
+                      <span class="produto-estoque">${Number(produto.estoque) > 0 ? `${escaparHtml(produto.estoque)} em estoque` : "Indisponível"}</span>
+                    </div>
+                    <a class="botao" href="/src/pages/produto.html?id=${encodeURIComponent(produto.id)}">${Number(produto.estoque) > 0 ? "Ver detalhes" : "Consultar produto"}</a>
                 </div>
             </article>
         `,
@@ -63,6 +71,8 @@ async function carregarProdutos() {
       : "<p>Nenhum produto encontrado.</p>";
   } catch (error) {
     if (requisicao === requisicaoAtual) {
+      document.getElementById("resultado-catalogo").textContent =
+        "Não foi possível carregar o catálogo";
       document.getElementById("produtos").innerHTML =
         `<div class="aviso aviso-erro">${escaparHtml(error.message)}</div>`;
     }

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/src/pages/style.css" />
   </head>
   <body>
+    <a class="atalho-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
     <header class="topo">
       <a class="logo" href="/src/pages/home.html"
         ><span class="logo-marca" aria-hidden="true"><i class="fi fi-rr-sun"></i></span> GreenEnergy</a
@@ -31,7 +32,7 @@
         >
       </div>
     </header>
-    <main class="conteudo">
+    <main class="conteudo" id="conteudo-principal">
       <section class="catalogo-banner" aria-labelledby="titulo-vitrine-catalogo">
         <img
           src="/src/assets/images/solar-field.jpg"
@@ -75,6 +76,7 @@
           <option value="nome">Nome</option>
         </select>
       </div>
+      <div class="resultado-catalogo" id="resultado-catalogo" role="status" aria-live="polite"></div>
       <div class="grade-produtos" id="produtos" aria-live="polite">
         <div class="carregando">Carregando</div>
       </div>
